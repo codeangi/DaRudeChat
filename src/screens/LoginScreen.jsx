@@ -1,8 +1,9 @@
+import React, { Component,useState } from 'react'
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import LoginScreen from '/src/Login/LoginScreen'
+import { ChatScreen } from './LoginScreen'
 
-class ChatScreen extends React.Component {
+export class LoginScreen extends React.Component {
   static navigationOptions = {
     title: 'Welcome',
   };
@@ -11,7 +12,7 @@ class ChatScreen extends React.Component {
     return (
       <Button
         title="Go to Jane's profile"
-        onPress={() => navigate('Login', {name: 'Jane'})}
+        onPress={() => navigate('Chat', {name: 'Jane'})}
       />
     );
   }

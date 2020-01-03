@@ -1,9 +1,39 @@
+import React, { Component,useState } from 'react'
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import LoginScreen from './src/Login/LoginScreen.jsx'
-import ChatScreen from './src/Chat/ChatScreen.jsx'
+import {AppRegistry, StyleSheet, Text, Button,View, TextInput} from 'react-native';
+import { LoginScreen, ChatScreen } from './src/screens'
 
-
+// export default class DaRudeChat extends Component {
+//   render() {
+//     return (
+//       <View style={styles.container}>
+//         <Text style={{ height: 40, borderColor: 'gray', borderWidth: 1 , top: 150}}>Welcome to the Jungle!!</Text>
+//                 <TextInput
+//                   style={{ height: 40, borderColor: 'gray', borderWidth: 1 , top: 150}}
+//                   onChangeText={text => onChangeText(text)}
+//                 />
+//                 <Button title="Login"/>
+//       </View>
+//     );
+//   }
+// }
+//
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     flexDirection: 'column',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     backgroundColor: '#F5FCFF',
+//   },
+//   label: {
+//     fontSize: 16,
+//     fontWeight: 'normal',
+//     marginBottom: 48,
+//   },
+// });
+AppRegistry.registerComponent('DaRudeChat', () => DaRudeChat);
 
 const MainNavigator = createStackNavigator({
   Login: {screen: LoginScreen},
@@ -11,7 +41,6 @@ const MainNavigator = createStackNavigator({
 });
 
 const App = createAppContainer(MainNavigator);
-
 export default App;
 
 
