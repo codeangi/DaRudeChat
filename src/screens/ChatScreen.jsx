@@ -115,7 +115,7 @@ export default function ChatScreen(props) {
           time: moment().utc().toString(),
           messageText: typedMessage,
           messageType: "SELF",
-          sender: user_name
+          sender: user_name+"(You):"
         },
         ...allMessages
       ]);
