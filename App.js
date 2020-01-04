@@ -11,99 +11,139 @@ import {
   KeyboardAvoidingView,
   FlatList
 } from "react-native";
-// import { LoginScreen, ChatScreen } from './src/screens'
+import moment from "moment";
+import MessageItem from "./src/components/MessageItem";
+import MessageInput from "./src/components/MessageInput";
+
 
 export default function DaRudeChat() {
-  const [message, sendMessage] = useState("");
-  const [sentMessages,setSentMessage]= useState([]);
-  const USER_NAME = '';
-  
-  state = {
-    allmessages: [],
+  const [outputText, setOutputText] = useState("");
+
+  const [allMessages, setAllMessages] = useState([{
+    key :
+    moment()
+      .valueOf()
+      .toString()+ "OTHER1",
+    time:
+      moment()
+        .valueOf()
+        .toString(),
+    messageText: "Hey!!",
+    messageType: "OTHER",
+    sender: "OTHER"
+  },{
+    key :
+    moment()
+      .valueOf()
+      .toString()+ "OTHER2",
+    time:
+      moment()
+        .valueOf()
+        .toString(),
+    messageText: "What are you upto?",
+    messageType: "OTHER",
+    sender: "OTHER"
+  },]);
+
+  const USER_NAME = "";
+
+  const getReply = Usermessage => {
+    console.log("inside-reply machine");
+    console.log(Usermessage);
+    if (Usermessage.includes("Hi")) {
+      return {
+        key: moment()
+          .valueOf()
+          .toString(),
+        time: moment()
+          .valueOf()
+          .toString(),
+        messageText: "Hello!!",
+        messageType: "OTHER",
+        sender: "OTHER"
+      };
+    } else if (Usermessage.includes("where are")) {
+      return {
+        key: moment()
+          .valueOf()
+          .toString(),
+        time: moment()
+          .valueOf()
+          .toString(),
+        messageText: "I'm from mars",
+        messageType: "OTHER",
+        sender: "OTHER"
+      };
+    } else if (Usermessage.includes("bro")) {
+      return {
+        key: moment()
+          .valueOf()
+          .toString(),
+        time: moment()
+          .valueOf()
+          .toString(),
+        messageText: "bro pls..",
+        messageType: "OTHER",
+        sender: "OTHER"
+      };
+    } else {
+      return {
+        key: moment()
+          .valueOf()
+          .toString(),
+        time: moment()
+          .valueOf()
+          .toString(),
+        messageText: "hahaha",
+        messageType: "OTHER",
+        sender: "OTHER"
+      };
+    }
   };
-  
-  function renderItem({item}) {
-    if(item.messageType== "SELF"){
-    return (
-      <View style={styles.row}>
-        <Text style={styles.sender}>{item.sender}</Text>
-        <Text style={styles.message}>{item.message}</Text>
-      </View>
-    );
-  }else{
-    return (
-      <View style={styles.row}>
-        <Text style={styles.sender}>{item.sender}</Text>
-        <Text style={styles.message}>{item.message}</Text>
-      </View>
-    );
-
-  }
-  }
 
 
 
-  // function componentDidMount() {
-  //   subscribe(CHANNEL, allMessages => {
-  //     this.setState({allMessages});
-  //   });
-  // };
 
 
-  // const [allMessages,setAllMessages]= useState([]);
-  
 
+  const sendMessageHandler = typedMessage => {
+    if (typedMessage.length > 0) {
+      setAllMessages(currentMessages => [
+        ...allMessages,
+        {
+          key:moment().valueOf().toString() + "SELF",
+          time: moment().valueOf().toString(),
+          messageText: typedMessage,
+          messageType: "SELF",
+          sender: "You"
+        },
+        getReply(typedMessage)
+      ]);
 
-  function messageInputHandler(typedMessage) {
-    sendMessage(typedMessage);
-  }
-  const tryAndGetAReply =(Usermessage) =>{
-
-
-  }
-
-  const sendMessageHandler = () => {
-    setSentMessage(currentMessages=>[...sentMessages,message]);
-    setAllMessages(currentMessages=>[...allMessages,message]);
-    tryAndGetAReply(message)
-    //setSentMessage([...sentMessage, message]);
-    this.messageInput.clear();
-
+      this.messageInput.clear();
+    }
   };
 
   return (
-    <View style={styles.screen}>
+  
+  <View style={styles.screen}>
       <View style={styles.chat_box}>
-      <FlatList
-          ref={input => { this.messageInput = input }}
-          data={this.state.allMessages}
-          renderItem={this.renderItem}
+        <FlatList
+          data={allMessages}
+          renderItem={itemData => (
+            <MessageItem
+              messageType={itemData.item.messageType}
+              time={itemData.item.time}
+              messageText={itemData.item.messageText}
+              sender={itemData.item.sender}
+            />
+          )}
         />
-      {/* //{sentMessages.map((message) => <View key={message}><Text style={{color:'white'}} >{message}</Text></View>)} */}
       </View>
-
-      <KeyboardAvoidingView style={styles.bottom_row} behavior="padding">
-        <TextInput
-        ref={input => { this.messageInput = input }}
-          value={message}
-          onChangeText={messageInputHandler}
-          placeholder="Your Message"
-          style={styles.message_box_style}
-          placeholderTextColor="#FFF"
-        />
-
-        <Button
-          onPress={sendMessageHandler}
-          title="Send"
-          style={styles.send_button_style}
-        />
-      </KeyboardAvoidingView>
+      <MessageInput onSendMessage={sendMessageHandler} />
     </View>
   );
 }
-
-
-
 
 const styles = StyleSheet.create({
   screen: {
@@ -113,6 +153,57 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     height: "100%"
   },
+  self_bubble: {
+    marginVertical: 20,
+    backgroundColor: "#b2b2b2",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    flex: 1,
+    alignSelf: "flex-end",
+    maxWidth: "60%",
+    paddingHorizontal: 15,
+    paddingTop: 10,
+    paddingBottom: 15,
+    borderRadius: 20
+  },
+  self_sender: {
+    fontWeight: "bold",
+    paddingRight: 10,
+    fontSize: 12,
+    color: "black"
+  },
+  self_message: {
+    fontSize: 18,
+    color: "black"
+  },
+
+  bubble: {
+    marginVertical: 20,
+    backgroundColor: "#f0f0f0",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    flex: 1,
+    alignSelf: "flex-start",
+    maxWidth: "60%",
+    paddingHorizontal: 15,
+    paddingTop: 10,
+    paddingBottom: 15,
+    borderRadius: 20
+  },
+
+  message: {
+    fontSize: 18,
+    color: "black"
+  },
+  sender: {
+    fontWeight: "bold",
+    paddingRight: 10,
+    color: "black",
+    fontSize: 12
+  },
+
   bottom_row: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -136,144 +227,11 @@ const styles = StyleSheet.create({
     padding: 10,
     width: "20%"
   },
-  item: {color:'white',
-marginVertical: 10
-},
-row: {
-  padding: 20,
-  borderBottomWidth: 1,
-  borderBottomColor: '#eee',
-},
-message: {
-  fontSize: 18,
-},
-sender: {
-  fontWeight: 'bold',
-  paddingRight: 10,
-}
-
+  item: { color: "white", marginVertical: 10 },
+  row: {
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+    backgroundColor: "white"
+  }
 });
-//
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     flexDirection: 'column',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     backgroundColor: '#F5FCFF',
-//   },
-//   label: {
-//     fontSize: 16,
-//     fontWeight: 'normal',
-//     marginBottom: 48,
-//   },
-// });
-// AppRegistry.registerComponent('DaRudeChat', () => DaRudeChat);
-
-// const MainNavigator = createStackNavigator({
-//   Login: {screen: LoginScreen},
-//   Chat: {screen: ChatScreen},
-// });
-
-// const App = createAppContainer(MainNavigator);
-// export default App;
-
-// // import React from 'react';
-// import React, { Component } from 'react';
-// import { Image } from 'react-native';
-// import { View } from 'react-native';
-// import { Text  } from 'react-native';
-// import {  TextInput } from 'react-native';
-//
-//
-//
-// // export default class HelloWorldApp extends Component {
-// //   render() {
-// //     let pic = {
-// //       uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
-// //     };
-// //     return (
-// //       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-// //         <Text>Hello, world!</Text>
-// //         <Image source={pic} style={{width: 193, height: 110}}/>
-// //       </View>
-// //     );
-// //   }
-// // }
-//
-// // export default function App() {
-// //   return (
-// //     <View style={styles.container}>
-// //       <Text>Hello WorlD!! and Fuck You</Text>
-// //     </View>
-// //   );
-// // }
-//
-// // const styles = StyleSheet.create({
-// //   container: {
-// //     flex: 1,
-// //     backgroundColor: '#fff',
-// //     alignItems: 'center',
-// //     justifyContent: 'center',
-// //   },
-// // });
-//
-// class Greeting extends Component {
-//   render() {
-//     return (
-//       <View style={{alignItems: 'center', top: 150}}>
-//         <Text>Hello {this.props.name}!</Text>
-//       </View>
-//     );
-//   }
-// }
-//
-// // export default class LotsOfGreetings extends Component {
-// //   const [value, onChangeText] = React.useState('Useless Placeholder');
-// //   //
-// //   // render() {
-// //   //   <View style={{alignItems: 'center', top: 150}}>
-// //   //     <Greeting name='FuckWad'/>
-// //   //     <Greeting name='PooKisser'/>
-// //   //     <Greeting name='turdball'/>
-// //   //     <Greeting name='dickHead'/>
-// //   //     <Greeting name='stankBug'/>
-// //   //   </View>
-// //   // }
-// // }
-//
-// export default function UselessText() {
-//   const [value, onChangeText] = React.useState('Useless Placeholder');
-//
-//   return (
-//         <View style={{
-//         backgroundColor: value,
-//         borderBottomColor: '#000000',
-//         borderBottomWidth: 1,
-//       }}>
-//         <TextInput
-//           style={{ height: 40, borderColor: 'gray', borderWidth: 1 , top: 150}}
-//           onChangeText={text => onChangeText(text)}
-//           value={value}
-//         />
-//         <UselessTextInput
-//        multiline
-//        numberOfLines={4}
-//        onChangeText={text => onChangeText(text)}
-//        value={value}
-//      />
-//         <Greeting name='FuckWad'/>
-//                     </View>
-//   );
-// }
-//
-// function UselessTextInput(props) {
-//   return (
-//     <TextInput
-//       {...props} // Inherit any props passed to it; e.g., multiline, numberOfLines below
-//       editable
-//       maxLength={40}
-//       top={150}
-//     />
-//   );
-// }
