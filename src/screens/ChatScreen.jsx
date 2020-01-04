@@ -147,7 +147,7 @@ export default function ChatScreen() {
 
 const styles = StyleSheet.create({
   screen: {
-    padding: 30,
+    paddingBottom: 30,
     flexDirection: "column",
     backgroundColor: "black",
     justifyContent: "space-between",

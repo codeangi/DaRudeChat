@@ -1,6 +1,7 @@
 import React, { Component,useState } from 'react'
 import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
+import {createStackNavigator} from "react-navigation-stack"
+
 import {
   AppRegistry,
   StyleSheet,
@@ -15,35 +16,44 @@ import {
 import moment from "moment";
 
 
-export default function ChatScreen() {
+const LoginScreen = props =>{
   const [outputText, setOutputText] = useState("");
       
   function userNameInputHandler(typedMessage) {
     setOutputText(typedMessage);
   }
 
+  const validateUserHandler = () => {
+    console.log(outputText);
+    if (outputText.indexOf("admin") !== -1) {
+     console.log("Login Success"+outputText);
+     props.navigation.navigate('Chat')
+    }
+
+  };
+
+  
 
     return (
       <View style={styles.screen}>
-        <View style={styles.mid_box}>
+        <KeyboardAvoidingView style={styles.mid_box}>
         <TextInput
           ref={input => {
-            this.messageInput = input;
+            this.userNameInput = input;
           }}
           value={outputText}
           onChangeText={userNameInputHandler}
           placeholder="User name"
           style={styles.username_input_style}
-        
           placeholderTextColor="#FFF"
         />
 
 <TouchableOpacity
-         style={styles.login_button_style}  
-         onPress={console.log('login')}>
-         <Text      style={{color:'white', width:"100%", textAlign: 'center'}}  > Login </Text>
+          onPress={validateUserHandler}
+         style={styles.login_button_style}>
+         <Text      style={{color:'white', width:"100%", textAlign: 'center'}}> Login </Text>
  </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
       </View>
     )
 }
@@ -83,3 +93,4 @@ const styles = StyleSheet.create({
     width: "80%",
   }
 });
+export default LoginScreen;
