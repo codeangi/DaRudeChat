@@ -7,7 +7,43 @@ import {
     TextInput,
     KeyboardAvoidingView
   } from "react-native";
+  import moment, { min } from "moment";
 
+
+  function getDiff(time) {
+    console.log("diff");
+
+    var CurrentDate = moment();
+    var dateString = moment.unix(time);
+
+    var duration = moment.duration(dateString.diff(CurrentDate));
+    var hours = duration.asHours();
+    var minutes= duration.asMinutes()
+
+    console.log(minutes.toString());
+
+
+    if(minutes<2){
+        console.log("Just now");
+
+        return("Just now");
+    }
+    else if(minutes<5){
+        console.log("minutes");
+
+            return(minutes.toString()+" minutes ago");
+        }
+    
+    else {
+        console.log("time");
+
+        return(
+                dateString.format('HH:mm').toString()
+            );
+    }
+      
+      
+  }
 const MessageItem = props =>{
     if (props.messageType.includes("SELF")) {
         return (
@@ -15,6 +51,11 @@ const MessageItem = props =>{
             <Text style={styles.self_sender}>{props.sender}</Text>
             <Text style={styles.self_message}>
               {props.messageText}
+            </Text>
+            <Text style={styles.self_date}>
+                {
+                    getDiff(props.time)
+                }
             </Text>
           </View>
         );
@@ -24,6 +65,11 @@ const MessageItem = props =>{
             <Text style={styles.sender}>{props.sender}</Text>
             <Text style={styles.message}>
               {props.messageText}
+            </Text>
+            <Text style={styles.self_date}>
+                {
+                   getDiff(props.time)
+                }
             </Text>
           </View>
         );
@@ -39,41 +85,46 @@ const styles = StyleSheet.create({
     },
     self_bubble: {
       marginVertical: 20,
-      backgroundColor: "#b2b2b2",
+      backgroundColor: "#1EADAE",
       flexDirection: "column",
       justifyContent: "flex-end",
       alignItems: "flex-end",
-      flex: 1,
+      flex: 2,
       alignSelf: "flex-end",
       maxWidth: "60%",
       paddingHorizontal: 15,
       paddingTop: 10,
-      paddingBottom: 15,
+      paddingBottom: 10,
+      paddingStart:12,
+      paddingEnd:12,
       borderRadius: 20
     },
     self_sender: {
-      fontWeight: "bold",
-      paddingRight: 10,
-      fontSize: 12,
+      fontSize: 10,
       color: "black"
     },
     self_message: {
       fontSize: 18,
       color: "black"
     },
-  
+    self_date: {
+      fontSize: 8,
+      color: "black"
+    },
     bubble: {
       marginVertical: 20,
-      backgroundColor: "#f0f0f0",
+      backgroundColor: "#F3BF24",
       flexDirection: "column",
       justifyContent: "flex-start",
       alignItems: "flex-start",
-      flex: 1,
+      flex: 2,
       alignSelf: "flex-start",
       maxWidth: "60%",
       paddingHorizontal: 15,
+      paddingStart:12,
+      paddingEnd:12,
       paddingTop: 10,
-      paddingBottom: 15,
+      paddingBottom: 10,
       borderRadius: 20
     },
   
@@ -82,10 +133,8 @@ const styles = StyleSheet.create({
       color: "black"
     },
     sender: {
-      fontWeight: "bold",
-      paddingRight: 10,
       color: "black",
-      fontSize: 12
+      fontSize: 10
     },
   
     bottom_row: {

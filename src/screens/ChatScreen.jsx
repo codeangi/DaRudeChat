@@ -14,38 +14,42 @@ import {
 import moment from "moment";
 import MessageItem from "../components/MessageItem";
 import MessageInput from "../components/MessageInput";
+import RoboMessageDirectory from "../sample_data/RoboMessages"
 
 
-export default function ChatScreen() {
-  const [outputText, setOutputText] = useState("");
+export default function ChatScreen(props) {
+  const { navigation } = props;  
+  const user_name = navigation.getParam('userName', 'You');  
 
-  const [allMessages, setAllMessages] = useState([{
-    key :
-    moment()
-      .valueOf()
-      .toString()+ "OTHER1",
-    time:
-      moment()
+  const [allMessages, setAllMessages] = useState([
+    {
+      key:
+        moment()
+          .valueOf()
+          .toString() + "OTHER1",
+      time: moment("2019-06-24T09:00", "YYYY-MM-DDTHH:mm").utc()
         .valueOf()
         .toString(),
-    messageText: "Hey!!",
-    messageType: "OTHER",
-    sender: "OTHER"
-  },{
-    key :
-    moment()
-      .valueOf()
-      .toString()+ "OTHER2",
-    time:
-      moment()
+      messageText: "Hey!!",
+      messageType: "OTHER",
+      sender: "OTHER"
+    },
+    {
+      key:
+        moment("2019-07-24T09:00", "YYYY-MM-DDTHH:mm").utc()
+          .valueOf()
+          .toString() + "OTHER2",
+      time: moment()
         .valueOf()
         .toString(),
-    messageText: "What are you upto?",
-    messageType: "OTHER",
-    sender: "OTHER"
-  },]);
+      messageText: "What are you upto?",
+      messageType: "OTHER",
+      sender: "OTHER"
+    }
+  ]);
+  
 
-  const USER_NAME = "";
+ 
 
   const getReply = Usermessage => {
     console.log("inside-reply machine");
@@ -102,20 +106,16 @@ export default function ChatScreen() {
   };
 
 
-
-
-
-
   const sendMessageHandler = typedMessage => {
     if (typedMessage.length > 0) {
       setAllMessages(currentMessages => [
         ...allMessages,
         {
           key:moment().valueOf().toString() + "SELF",
-          time: moment().valueOf().toString(),
+          time: moment().utc().valueOf().toString(),
           messageText: typedMessage,
           messageType: "SELF",
-          sender: "You"
+          sender: user_name
         },
         getReply(typedMessage)
       ]);

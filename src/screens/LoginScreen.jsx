@@ -11,7 +11,8 @@ import {
   TextInput,
   KeyboardAvoidingView,
   FlatList,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from "react-native";
 import moment from "moment";
 
@@ -27,7 +28,13 @@ const LoginScreen = props =>{
     console.log(outputText);
     if (outputText.indexOf("admin") !== -1) {
      console.log("Login Success"+outputText);
-     props.navigation.navigate('Chat')
+     props.navigation.navigate('Chat',{
+      userName: outputText,  
+     })
+    }else{
+      Alert.alert(
+        'You need to be an admin for this..'
+     )
     }
 
   };
