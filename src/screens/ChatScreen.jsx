@@ -27,8 +27,8 @@ export default function ChatScreen(props) {
         moment()
           .valueOf()
           .toString() + "OTHER1",
-      time: moment("2019-06-24T09:00", "YYYY-MM-DDTHH:mm").utc()
-        .valueOf()
+      time: moment()
+      .utc()
         .toString(),
       messageText: "Hey!!",
       messageType: "OTHER",
@@ -36,11 +36,11 @@ export default function ChatScreen(props) {
     },
     {
       key:
-        moment("2019-07-24T09:00", "YYYY-MM-DDTHH:mm").utc()
-          .valueOf()
+        moment()
+        .utc()
           .toString() + "OTHER2",
       time: moment()
-        .valueOf()
+        .utc()
         .toString(),
       messageText: "What are you upto?",
       messageType: "OTHER",
@@ -60,7 +60,7 @@ export default function ChatScreen(props) {
           .valueOf()
           .toString(),
         time: moment()
-          .valueOf()
+        .utc()
           .toString(),
         messageText: "Hello!!",
         messageType: "OTHER",
@@ -69,10 +69,10 @@ export default function ChatScreen(props) {
     } else if (Usermessage.includes("where are")) {
       return {
         key: moment()
-          .valueOf()
+        .utc()
           .toString(),
         time: moment()
-          .valueOf()
+          .utc()
           .toString(),
         messageText: "I'm from mars",
         messageType: "OTHER",
@@ -81,10 +81,10 @@ export default function ChatScreen(props) {
     } else if (Usermessage.includes("bro")) {
       return {
         key: moment()
-          .valueOf()
+        .utc()
           .toString(),
         time: moment()
-          .valueOf()
+          .utc()
           .toString(),
         messageText: "bro pls..",
         messageType: "OTHER",
@@ -93,10 +93,10 @@ export default function ChatScreen(props) {
     } else {
       return {
         key: moment()
-          .valueOf()
+        .utc()
           .toString(),
         time: moment()
-          .valueOf()
+          .utc()
           .toString(),
         messageText: "hahaha",
         messageType: "OTHER",
@@ -112,7 +112,7 @@ export default function ChatScreen(props) {
         ...allMessages,
         {
           key:moment().valueOf().toString() + "SELF",
-          time: moment().utc().valueOf().toString(),
+          time: moment().utc().toString(),
           messageText: typedMessage,
           messageType: "SELF",
           sender: user_name

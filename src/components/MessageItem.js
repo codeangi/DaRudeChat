@@ -12,35 +12,32 @@ import {
 
   function getDiff(time) {
     console.log("diff");
+    var dateString = moment(time).utc().local().format('ddd, h:mA');
+    return(dateString);
 
-    var CurrentDate = moment();
-    var dateString = moment.unix(time);
+    // var duration = moment.duration(dateString.diff(CurrentDate));
+    // var hours = duration.asHours();
+    // var minutes= duration.asMinutes()
 
-    var duration = moment.duration(dateString.diff(CurrentDate));
-    var hours = duration.asHours();
-    var minutes= duration.asMinutes()
-
-    console.log(minutes.toString());
+    // console.log(minutes.toString());
 
 
-    if(minutes<2){
-        console.log("Just now");
+    // if(minutes<2){
+    //     console.log("Just now");
 
-        return("Just now");
-    }
-    else if(minutes<5){
-        console.log("minutes");
+    //     return("Just now");
+    // }
+    // else if(minutes<5){
+    //     console.log("minutes");
 
-            return(minutes.toString()+" minutes ago");
-        }
+    //         return(minutes.toString()+" minutes ago");
+    //     }
     
-    else {
-        console.log("time");
+    // else {
+    //     console.log("time");
 
-        return(
-                dateString.format('HH:mm').toString()
-            );
-    }
+    //     r
+    // //}
       
       
   }
