@@ -22,6 +22,7 @@ import {
     // console.log(minutes.toString());
 
 
+
     // if(minutes<2){
     //     console.log("Just now");
 
@@ -98,14 +99,17 @@ const styles = StyleSheet.create({
     },
     self_sender: {
       fontSize: 10,
+      marginBottom: 5,
       color: "black"
     },
     self_message: {
       fontSize: 18,
+      marginVertical: 5,
       color: "black"
     },
     self_date: {
       fontSize: 8,
+      marginTop:5,
       color: "black"
     },
     bubble: {
@@ -127,9 +131,11 @@ const styles = StyleSheet.create({
   
     message: {
       fontSize: 18,
+      marginVertical: 5,
       color: "black"
     },
     sender: {
+        marginBottom: 5,
       color: "black",
       fontSize: 10
     },

@@ -32,7 +32,7 @@ export default function ChatScreen(props) {
         .toString(),
       messageText: "Hey!!",
       messageType: "OTHER",
-      sender: "OTHER"
+      sender: "Robo:"
     },
     {
       key:
@@ -44,7 +44,7 @@ export default function ChatScreen(props) {
         .toString(),
       messageText: "What are you upto?",
       messageType: "OTHER",
-      sender: "OTHER"
+      sender: "Robo:"
     }
   ]);
   
@@ -64,7 +64,7 @@ export default function ChatScreen(props) {
           .toString(),
         messageText: "Hello!!",
         messageType: "OTHER",
-        sender: "OTHER"
+        sender: "Robo:"
       };
     } else if (Usermessage.includes("where are")) {
       return {
@@ -76,7 +76,7 @@ export default function ChatScreen(props) {
           .toString(),
         messageText: "I'm from mars",
         messageType: "OTHER",
-        sender: "OTHER"
+        sender: "Robo:"
       };
     } else if (Usermessage.includes("bro")) {
       return {
@@ -88,7 +88,7 @@ export default function ChatScreen(props) {
           .toString(),
         messageText: "bro pls..",
         messageType: "OTHER",
-        sender: "OTHER"
+        sender: "Robo:"
       };
     } else {
       return {
@@ -100,7 +100,7 @@ export default function ChatScreen(props) {
           .toString(),
         messageText: "hahaha",
         messageType: "OTHER",
-        sender: "OTHER"
+        sender: "Robo:"
       };
     }
   };
@@ -109,7 +109,7 @@ export default function ChatScreen(props) {
   const sendMessageHandler = typedMessage => {
     if (typedMessage.length > 0) {
       setAllMessages(currentMessages => [
-        ...allMessages,
+        getReply(typedMessage),
         {
           key:moment().valueOf().toString() + "SELF",
           time: moment().utc().toString(),
@@ -117,9 +117,8 @@ export default function ChatScreen(props) {
           messageType: "SELF",
           sender: user_name
         },
-        getReply(typedMessage)
+        ...allMessages
       ]);
-
       this.messageInput.clear();
     }
   };
@@ -129,6 +128,7 @@ export default function ChatScreen(props) {
   <View style={styles.screen}>
       <View style={styles.chat_box}>
         <FlatList
+              inverted
           data={allMessages}
           renderItem={itemData => (
             <MessageItem

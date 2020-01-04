@@ -17,7 +17,7 @@ const MessageInput = props =>{
   }
 
     return(
-        <KeyboardAvoidingView style={styles.bottom_row} behavior="padding">
+        <View style={styles.bottom_row} behavior="padding">
         <TextInput
           ref={input => {
             this.messageInput = input;
@@ -34,7 +34,7 @@ const MessageInput = props =>{
           title="Send"
           style={styles.send_button_style}
         />
-      </KeyboardAvoidingView>
+      </View>
     )
 
 };
